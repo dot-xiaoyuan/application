@@ -4,11 +4,10 @@
 
 /** @var string $content */
 
-use backend\assets\AppAsset;
+use backend\assets\TablerAsset;
 use yii\helpers\Html;
 
-//AppAsset::register($this);
-\backend\assets\TablerAsset::register($this);
+TablerAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>

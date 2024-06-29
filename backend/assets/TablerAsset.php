@@ -6,15 +6,21 @@ use yii\web\AssetBundle;
 
 class TablerAsset extends AssetBundle
 {
-    public $basePath = '@webroot/tabler/dist';
-    public $baseUrl = '@web/tabler/dist';
+    public $basePath = '@webroot/';
+    public $baseUrl = '@web';
     public $css = [
-        'css/tabler.css',
+        'tabler/dist/css/tabler.min.css',
+        'tabler/dist/css/tabler-flags.min.css',
+        'tabler/dist/css/tabler-payments.min.css',
+        'tabler/dist/css/tabler-vendors.min.css',
+        'css/site.css',
     ];
     public $js = [
-        'js/tabler.js'
+        'tabler/dist/js/tabler.min.js',
+        'js/theme.min.js',
     ];
     public $depends = [
-
+        'yii\web\YiiAsset',
+        'yii\bootstrap5\BootstrapAsset',
     ];
 }
