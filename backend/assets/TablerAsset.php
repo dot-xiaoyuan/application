@@ -18,12 +18,15 @@ class TablerAsset extends AssetBundle
     ];
 
     public $js = [
-        'tabler/dist/js/tabler.js',
+        'tabler/dist/js/tabler.min.js',
         'tabler/dist/js/demo.min.js',
     ];
 
-//    public $jsOptions = ['position' => View::PH_HEAD];
+    public $jsOptions = ['position' => View::POS_END];
 
     public $depends = [
+        'yii\web\YiiAsset',
+        'yii\bootstrap5\BootstrapAsset',
+        'yii\bootstrap5\BootstrapPluginAsset',
     ];
 }

@@ -4,6 +4,7 @@
 
 /** @var string $content */
 
+use backend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Nav;
@@ -11,7 +12,8 @@ use yii\bootstrap5\NavBar;
 use yii\helpers\Html;
 use yii\web\View;
 
-\backend\assets\AppAsset::register($this);
+AppAsset::register($this);
+\backend\assets\TablerAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -178,6 +180,19 @@ use yii\web\View;
     </div>
 
     <?php $this->endBody() ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化 Tabler 组件
+            if (typeof Tabler !== 'undefined') {
+                Tabler.init();
+            }
+            // 初始化 Bootstrap 5 的 dropdown 组件
+            var dropdownElements = document.querySelectorAll('.dropdown-toggle');
+            dropdownElements.forEach(function(dropdownToggle) {
+                new bootstrap.Dropdown(dropdownToggle);
+            });
+        });
+    </script>
     </body>
     </html>
 <?php $this->endPage();
