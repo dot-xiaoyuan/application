@@ -18,9 +18,11 @@ class TablerAsset extends AssetBundle
     ];
 
     public $js = [
-        'tabler/dist/js/tabler.min.js',
+        'tabler/dist/js/tabler.js',
+        'tabler/dist/js/demo.min.js',
     ];
-    public $jsOptions = ['position' => View::PH_BODY_BEGIN];
+
+//    public $jsOptions = ['position' => View::PH_HEAD];
 
     public $depends = [
     ];

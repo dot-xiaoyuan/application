@@ -2,8 +2,14 @@
 
 /** @var yii\web\View $this */
 
+use backend\assets\ApexChartsAsset;
+use backend\assets\JsvectorMapAsset;
+
 $this->title = 'Dashboard';
-\backend\assets\ApexChartsAsset::register($this);
+
+ApexChartsAsset::register($this);
+JsvectorMapAsset::register($this);
+
 ?>
 <div class="row row-deck row-cards">
     <div class="col-sm-6 col-lg-3">
