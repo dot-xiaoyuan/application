@@ -17,7 +17,7 @@ class ApexChartsAsset extends AssetBundle
         'tabler/libs/apexcharts/dist/apexcharts.min.js',
     ];
 
-    public $jsOptions = ['position' => View::PH_HEAD];
+//    public $jsOptions = ['position' => View::PH_HEAD];
 
     public $depends = [
     ];
