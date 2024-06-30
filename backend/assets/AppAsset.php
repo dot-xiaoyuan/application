@@ -14,10 +14,13 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
     ];
+
     public $js = [
     ];
+
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap5\BootstrapAsset',
+        'backend\assets\TablerAsset',
     ];
 }
