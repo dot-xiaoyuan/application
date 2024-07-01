@@ -4,7 +4,7 @@
 
 /** @var string $content */
 
-use backend\assets\AppAsset;
+use backend\assets\TablerAsset;
 use common\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Nav;
@@ -12,8 +12,7 @@ use yii\bootstrap5\NavBar;
 use yii\helpers\Html;
 use yii\web\View;
 
-AppAsset::register($this);
-\backend\assets\TablerAsset::register($this);
+TablerAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -25,17 +24,6 @@ AppAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <style>
-        @import url('https://rsms.me/inter/inter.css');
-
-        :root {
-            --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-        }
-
-        body {
-            font-feature-settings: "cv03", "cv04", "cv11";
-        }
-    </style>
     <body class="d-flex flex-column h-100">
     <?php $this->beginBody() ?>
 
@@ -116,7 +104,7 @@ AppAsset::register($this);
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar navbar-vertical navbar-expand-lg',
-                'data-bs-theme' => Yii::$app->session->get('theme') ?: Yii::$app->params['theme'],
+                'data-bs-theme' => 'dark',
             ],
         ]);
         echo Nav::widget([
@@ -131,8 +119,8 @@ AppAsset::register($this);
         <!-- Wrapper -->
         <div class="page-wrapper">
             <div class="page-header d-print-none">
-                <?= Alert::widget() ?>
                 <div class="container-xl">
+                    <?= Alert::widget() ?>
                     <div class="row g-2 align-items-center">
                         <div class="col">
                             <!-- Page pre-title -->
@@ -146,11 +134,13 @@ AppAsset::register($this);
                                 ]) ?>
                             </h2>
                         </div>
+                        <?= Alert::widget() ?>
                     </div>
                 </div>
             </div>
             <div class="page-body">
                 <div class="container-xl">
+                    <?= Alert::widget() ?>
                     <?= $content ?>
                 </div>
             </div>
@@ -180,19 +170,6 @@ AppAsset::register($this);
     </div>
 
     <?php $this->endBody() ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 初始化 Tabler 组件
-            if (typeof Tabler !== 'undefined') {
-                Tabler.init();
-            }
-            // 初始化 Bootstrap 5 的 dropdown 组件
-            var dropdownElements = document.querySelectorAll('.dropdown-toggle');
-            dropdownElements.forEach(function(dropdownToggle) {
-                new bootstrap.Dropdown(dropdownToggle);
-            });
-        });
-    </script>
     </body>
     </html>
 <?php $this->endPage();

@@ -3,7 +3,6 @@
 namespace backend\assets;
 
 use yii\web\AssetBundle;
-use yii\web\View;
 
 class TablerAsset extends AssetBundle
 {
@@ -15,6 +14,7 @@ class TablerAsset extends AssetBundle
         'tabler/dist/css/tabler-flags.min.css',
         'tabler/dist/css/tabler-payments.min.css',
         'tabler/dist/css/tabler-vendors.min.css',
+        'css/site.css',
     ];
 
     public $js = [
@@ -22,11 +22,8 @@ class TablerAsset extends AssetBundle
         'tabler/dist/js/demo.min.js',
     ];
 
-    public $jsOptions = ['position' => View::POS_END];
-
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap5\BootstrapAsset',
-        'yii\bootstrap5\BootstrapPluginAsset',
     ];
 }

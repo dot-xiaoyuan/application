@@ -61,6 +61,13 @@ return [
                 ],
             ],
         ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap5\BootstrapPluginAsset' => [
+                    'js' => [],
+                ],
+            ],
+        ],
     ],
     'params' => $params,
 ];
