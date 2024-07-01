@@ -11,6 +11,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'language' => 'zh-CN',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -45,6 +46,26 @@ return [
             'showScriptName' => false,
             'rules' => [
 
+            ],
+        ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap5\BootstrapPluginAsset' => [
+                    'js' => [],
+                ],
             ],
         ],
     ],

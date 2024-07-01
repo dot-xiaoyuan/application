@@ -19,7 +19,7 @@ class LoginForm extends Model
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             // username and password are both required
@@ -31,6 +31,14 @@ class LoginForm extends Model
         ];
     }
 
+    public function attributeLabels(): array
+    {
+        return [
+            'username' => Yii::t('app', 'Username'),
+            'password' => Yii::t('app', 'Password'),
+            'rememberMe' => Yii::t('app', 'RememberMe'),
+        ];
+    }
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
@@ -43,7 +51,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, Yii::t('app', 'Incorrect username or password.'));
             }
         }
     }
@@ -53,7 +61,7 @@ class LoginForm extends Model
      *
      * @return bool whether the user is logged in successfully
      */
-    public function login()
+    public function login(): bool
     {
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
@@ -65,9 +73,9 @@ class LoginForm extends Model
     /**
      * Finds user by [[username]]
      *
-     * @return \common\models\User|null
+     * @return Manager|null
      */
-    protected function getUser()
+    protected function getUser(): ?Manager
     {
         if ($this->_user === null) {
             $this->_user = Manager::findByUsername($this->username);
