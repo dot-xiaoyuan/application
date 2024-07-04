@@ -21,56 +21,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Create Auth Item'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?php Pjax::begin(); ?>
 
     <?= GridView::widget([
-        'showHeader' => true,
+        'layout' => "{items}\n{pager}",
+        'options' => ['class' => 'card'],
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'tableOptions' => ['class' => 'table card-table table-vcenter text-nowrap datatable'],
-        'layout' => "
-        <div class='card'>
-            <div class='card-header'>
-                <h3 class='card-title'>Invoices</h3>
-            </div>
-            <div class='card-body border-bottom py-3'>
-                <div class='d-flex'>
-                    <div class='text-secondary'>
-                        Show
-                        <div class='mx-2 d-inline-block'>
-                            {summary}
-                        </div>
-                        entries
-                    </div>
-                    <div class='ms-auto text-secondary'>
-                        Search:
-                        <div class='ms-2 d-inline-block'>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class='table-responsive'>{items}</div>
-            <div class='card-footer d-flex align-items-center'>
-                <p class='m-0 text-secondary'>Showing {begin} to {end} of {totalCount} entries</p>
-                <ul class='pagination m-0 ms-auto'>{pager}</ul>
-            </div>
-        </div>
-    ",
-        'summary' => Html::tag('input', '', [
-            'type' => 'text',
-            'class' => 'form-control form-control-sm',
-            'value' => 8,
-            'size' => 3,
-            'aria-label' => 'Invoices count'
-        ]),
         'columns' => [
-            ['class' => 'yii\grid\CheckboxColumn', 'headerOptions' => ['class' => 'w-1']],
-//        [
-//            'attribute' => 'id',
-//            'headerOptions' => ['class' => 'w-1'],
-//            'contentOptions' => ['class' => 'text-secondary'],
-//        ],
+//            ['class' => 'yii\grid\CheckboxColumn', 'headerOptions' => ['class' => 'w-1']],
+            'name',
             [
                 'attribute' => 'name',
                 'format' => 'raw',
@@ -78,8 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a(Html::encode($model->name), ['invoice/view'], ['class' => 'text-reset', 'tabindex' => '-1']);
                 }
             ],
-//        'client',
-//        'vat_no',
             'created_at:date',
             [
                 'attribute' => 'type',
@@ -96,7 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::tag('span', '', ['class' => "badge $badgeClass me-1"]) . $model->type;
                 }
             ],
-            'price:currency',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{actions}',

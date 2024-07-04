@@ -1,32 +1,37 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var backend\modules\rbac\models\AuthItem $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="auth-item-form">
+<div class="auth-item-form card col-6 offset-3">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['class' => 'card-body'],
+        'layout' => 'horizontal',
+        'fieldConfig' => [
+            'template' => "<div class='mb-3 row'>{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}</div>",
+            'horizontalCssClasses' => [
+                'label' => 'col-3 col-form-label',
+                'offset' => 'offset-sm-4',
+                'wrapper' => 'col',
+                'error' => '',
+                'hint' => 'form-hint',
+            ]
+        ]
+    ]); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['class' => 'form-control required']) ?>
 
-    <?= $form->field($model, 'type')->textInput() ?>
+    <?= $form->field($model, 'type')->textInput(['class' => 'form-control required']) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->textInput() ?>
 
-    <?= $form->field($model, 'rule_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'data')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <div class="form-group">
+    <div class="form-group card-footer text-end">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
