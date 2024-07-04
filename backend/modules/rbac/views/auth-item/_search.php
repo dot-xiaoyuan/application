@@ -18,19 +18,23 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'type') ?>
-
-    <?= $form->field($model, 'description') ?>
-
-    <?= $form->field($model, 'rule_name') ?>
-
-    <?= $form->field($model, 'data') ?>
-
-    <?php // echo $form->field($model, 'created_at') ?>
-
-    <?php // echo $form->field($model, 'updated_at') ?>
+    <div class="card-body border-bottom py-3">
+        <div class="d-flex">
+            <div class="text-secondary">
+                Show
+                <div class="mx-2 d-inline-block">
+                    <input type="text" class="form-control form-control-sm" value="8" size="3" aria-label="Invoices count">
+                </div>
+                entries
+            </div>
+            <div class="ms-auto text-secondary">
+                Search:
+                <div class="ms-2 d-inline-block">
+                    <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
