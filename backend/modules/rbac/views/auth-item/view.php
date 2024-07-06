@@ -13,12 +13,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="auth-item-view card">
 
     <div class="card-header btn-list">
-        <?= Html::a(Html::tag('i', null, ['class' => 'ti ti-edit']), ['update', 'name' => $model->name], [
+        <?= Html::a(Yii::$app->params['svg.edit'], ['update', 'name' => $model->name], [
             'class' => 'btn btn-info btn-icon',
             'aria-label' => 'button',
             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Update')
         ]) ?>
-        <?= Html::a(Html::tag('i', null, ['class' => 'ti ti-trash']), ['delete', 'name' => $model->name], [
+        <?= Html::a(Yii::$app->params['svg.trash'], ['delete', 'name' => $model->name], [
             'class' => 'btn btn-danger btn-icon',
             'aria-label' => 'button',
             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Delete')

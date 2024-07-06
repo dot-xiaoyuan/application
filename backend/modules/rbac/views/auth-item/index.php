@@ -14,13 +14,17 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Auth Items');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?= $this->render('_search', ['model' => $searchModel]) ?>
+
 <div class="auth-item-index card">
     <div class="card-header btn-list">
-        <?= Html::a(Html::tag('i', Yii::t('app', 'Create'), ['class' => 'ti ti-plus']), ['create'], [
+        <?= Html::a(Yii::$app->params['svg.plus'] . Yii::t('app', 'Create'), ['create'], [
             'class' => 'btn btn-success',
             'aria-label' => 'button',
             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Create')
         ]) ?>
+
     </div>
     <?php Pjax::begin(); ?>
 
@@ -53,21 +57,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['class' => 'text-end'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
-                        return Html::a(Html::tag('i', null, ['class' => 'ti ti-eye']), ['view', 'name' => $model->name], [
+                        return Html::a(Yii::$app->params['svg.eye'], ['view', 'name' => $model->name], [
                             'class' => 'btn btn-icon btn-sm',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'View')
                         ]);
                     },
                     'update' => function ($url, $model, $key) {
-                        return Html::a(Html::tag('i', null, ['class' => 'ti ti-edit']), ['update', 'name' => $model->name], [
+                        return Html::a(Yii::$app->params['svg.edit'], ['update', 'name' => $model->name], [
                             'class' => 'btn btn-info btn-icon btn-sm',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Update')
                         ]);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a(Html::tag('i', null, ['class' => 'ti ti-trash']), ['delete', 'name' => $model->name], [
+                        return Html::a(Yii::$app->params['svg.trash'], ['delete', 'name' => $model->name], [
                             'class' => 'btn btn-danger btn-icon btn-sm',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Delete')

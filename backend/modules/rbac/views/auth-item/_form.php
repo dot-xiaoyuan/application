@@ -8,7 +8,7 @@ use yii\bootstrap5\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="auth-item-form card col-6 offset-3">
+<div class="auth-item-form card col-4">
 
     <?php $form = ActiveForm::begin([
         'options' => ['class' => 'card-body'],
@@ -32,7 +32,7 @@ use yii\bootstrap5\ActiveForm;
     <?= $form->field($model, 'description')->textInput() ?>
 
     <div class="form-group card-footer text-end">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::$app->params['svg.save'] . Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

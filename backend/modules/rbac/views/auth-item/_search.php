@@ -1,46 +1,48 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var backend\modules\rbac\models\search $model */
-/** @var yii\widgets\ActiveForm $form */
+/** @var yii\bootstrap5\ActiveForm $form */
+$this->registerJsFile(Yii::getAlias('@web/svg/tabler.svg'), [
+    'type' => 'image/svg+xml',
+    'position' => \yii\web\View::POS_END,
+]);
 ?>
 
-<div class="auth-item-search">
+<div class="row align-items-center">
+    <div class="col-auto d-print-none">
+        <svg class="icon icon-tabler icon-tabler-search" width="24" height="24">
+            <use href="#icon-eye"></use>
+        </svg>
+        <svg class="icon icon-tabler icon-tabler-edit" width="24" height="24">
+            <use xlink:href="#icon-search"></use>
+        </svg>
+        <?php $form = ActiveForm::begin([
+            'action' => ['index'],
+            'method' => 'get',
+            'options' => [
+                'data-pjax' => 1,
+                'class' => 'd-flex'
+            ],
+        ]); ?>
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
-    ]); ?>
-
-    <div class="card-body border-bottom py-3">
-        <div class="d-flex">
-            <div class="text-secondary">
-                Show
-                <div class="mx-2 d-inline-block">
-                    <input type="text" class="form-control form-control-sm" value="8" size="3" aria-label="Invoices count">
-                </div>
-                entries
-            </div>
-            <div class="ms-auto text-secondary">
-                Search:
-                <div class="ms-2 d-inline-block">
-                    <input type="text" class="form-control form-control-sm" aria-label="Search invoice">
-                </div>
-            </div>
+        <div class="me-3 d-none d-md-block">
+            <?= $form->field($model, 'name')->textInput([
+                'class' => 'form-control',
+                'placeholder' => 'Search…'
+            ])->label(false) ?>
         </div>
+
+        <div class="form-group">
+            <?= Html::submitButton(Yii::$app->params['svg.search'] . Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::resetButton(Yii::$app->params['svg.refresh'] . Yii::t('app', 'Refresh'), ['class' => 'btn btn-outline-secondary']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
     </div>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>
