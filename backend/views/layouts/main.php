@@ -134,12 +134,16 @@ TablerAsset::register($this);
                     </div>
                 </div>
             </div>
-            <div class="page-body">
+            <div class="page-header">
                 <div class="container-xl">
                     <?= Breadcrumbs::widget([
-                            'options' => ['class' => 'breadcrumb-arrows'],
+                        'options' => ['class' => 'breadcrumb-arrows'],
                         'links' => $this->params['breadcrumbs'] ?? [],
                     ]) ?>
+                </div>
+            </div>
+            <div class="page-body">
+                <div class="container-xl">
                     <?= $content ?>
                 </div>
             </div>

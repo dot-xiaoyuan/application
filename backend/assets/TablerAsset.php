@@ -14,6 +14,7 @@ class TablerAsset extends AssetBundle
         'tabler/dist/css/tabler-flags.min.css',
         'tabler/dist/css/tabler-payments.min.css',
         'tabler/dist/css/tabler-vendors.min.css',
+        'icons-webfont/dist/tabler-icons.min.css',
         'css/site.css',
     ];
 

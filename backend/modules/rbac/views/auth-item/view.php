@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
 /** @var backend\modules\rbac\models\AuthItem $model */
@@ -9,35 +8,35 @@ use yii\widgets\DetailView;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Auth Items'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+
 ?>
 <div class="auth-item-view card">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="card-header btn-list">
+        <?= Html::a(Html::tag('i', null, ['class' => 'ti ti-edit']), ['update', 'name' => $model->name], [
+            'class' => 'btn btn-info btn-icon',
+            'aria-label' => 'button',
+            'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Update')
+        ]) ?>
+        <?= Html::a(Html::tag('i', null, ['class' => 'ti ti-trash']), ['delete', 'name' => $model->name], [
+            'class' => 'btn btn-danger btn-icon',
+            'aria-label' => 'button',
+            'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Delete')
+        ]) ?>
+    </div>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'name' => $model->name], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'name' => $model->name], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
+    <div class="card-body">
+        <?= \common\widgets\DataGrid::widget([
+            'model' => $model,
+            'attributes' => [
+                'name',
+                'type',
+                'description:ntext',
+                'rule_name',
+                'data',
+                'created_at:datetime',
+                'updated_at:datetime',
             ],
         ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-            'options' => ['class' => 'table table-vcenter'],
-        'model' => $model,
-        'attributes' => [
-            'name',
-            'type',
-            'description:ntext',
-            'rule_name',
-            'data',
-            'created_at',
-            'updated_at',
-        ],
-    ]) ?>
-
+    </div>
 </div>
