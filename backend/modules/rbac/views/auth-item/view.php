@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Auth Items'), 'url' 
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="auth-item-view">
+<div class="auth-item-view card">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?= DetailView::widget([
+            'options' => ['class' => 'table table-vcenter'],
         'model' => $model,
         'attributes' => [
             'name',

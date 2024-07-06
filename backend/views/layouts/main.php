@@ -120,7 +120,6 @@ TablerAsset::register($this);
         <div class="page-wrapper">
             <div class="page-header d-print-none">
                 <div class="container-xl">
-                    <?= Alert::widget() ?>
                     <div class="row g-2 align-items-center">
                         <div class="col">
                             <!-- Page pre-title -->
@@ -129,9 +128,6 @@ TablerAsset::register($this);
                             </div>
                             <h2 class="page-title">
                                 <?= $this->title ?>
-                                <?= Breadcrumbs::widget([
-                                    'links' => $this->params['breadcrumbs'] ?? [],
-                                ]) ?>
                             </h2>
                         </div>
                         <?= Alert::widget() ?>
@@ -140,7 +136,10 @@ TablerAsset::register($this);
             </div>
             <div class="page-body">
                 <div class="container-xl">
-                    <?= Alert::widget() ?>
+                    <?= Breadcrumbs::widget([
+                            'options' => ['class' => 'breadcrumb-arrows'],
+                        'links' => $this->params['breadcrumbs'] ?? [],
+                    ]) ?>
                     <?= $content ?>
                 </div>
             </div>
