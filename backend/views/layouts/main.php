@@ -4,16 +4,36 @@
 
 /** @var string $content */
 
+use backend\assets\SweetalertAsset;
 use backend\assets\TablerAsset;
 use common\widgets\Alert;
 use common\widgets\Menu;
 use yii\bootstrap5\Breadcrumbs;
-use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use yii\helpers\Html;
 use yii\web\View;
 
 TablerAsset::register($this);
+SweetalertAsset::register($this);
+?>
+<?php
+$js = <<<JS
+function fireError(content) {
+  Swal.fire({
+      title: "tips",
+      text: content,
+      icon: "error"
+  });
+}
+function fireSuccess(content) {
+  Swal.fire({
+      title: "tips",
+      text: content,
+      icon: "success"
+  });
+}
+JS;
+$this->registerJs($js);
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -129,7 +149,7 @@ TablerAsset::register($this);
                                 <?= $this->title ?>
                             </h2>
                         </div>
-                        <?= Alert::widget() ?>
+
                     </div>
                 </div>
             </div>
@@ -143,6 +163,7 @@ TablerAsset::register($this);
             </div>
             <div class="page-body">
                 <div class="container-xl">
+                    <?= Alert::widget() ?>
                     <?= $content ?>
                 </div>
             </div>

@@ -2,8 +2,10 @@
 
 namespace common\widgets;
 
+use Yii;
 use yii\base\Widget;
 use yii\bootstrap5\Nav;
+use yii\helpers\Html;
 
 /**
  * Menu Widget
@@ -19,7 +21,7 @@ class Menu extends Widget
 
     public function getMenu(): array
     {
-        return $this->_menu ?? \Yii::$app->params['menu'];
+        return $this->_menu ?? Yii::$app->params['menu'];
     }
 
     public function setMenu($menu)
@@ -34,7 +36,8 @@ class Menu extends Widget
     {
         $menu = $this->menu;
         foreach ($menu as $key => $item) {
-            $menu[$key]['label'] = $item['icon'] . $item['label'];
+            $menu[$key]['label'] =  Html::tag('span', $item['icon'], ['class' => 'nav-link-icon d-md-none d-lg-inline-block']).
+                Html::tag('span', Yii::t('menu', $item['label']), ['class' => 'nav-link-title']);
         }
 
         return Nav::widget([
@@ -42,6 +45,4 @@ class Menu extends Widget
             'items' => $menu,
         ]);
     }
-
-
 }

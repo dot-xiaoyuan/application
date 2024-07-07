@@ -67,6 +67,15 @@ return [
                         'app/error' => 'error.php',
                     ],
                 ],
+                'menu*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'menu.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
             ],
         ],
         'assetManager' => [

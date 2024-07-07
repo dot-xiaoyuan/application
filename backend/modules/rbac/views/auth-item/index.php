@@ -1,6 +1,7 @@
 <?php
 
 use backend\modules\rbac\models\AuthItem;
+use yii\bootstrap5\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -15,6 +16,29 @@ $this->title = Yii::t('app', 'Auth Items');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<?php
+$js = <<<JS
+$('.btn-default').click(function(){
+    var href = $(this).attr('href');
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+          $.post(href);
+      }
+    });
+    return false;
+})
+
+JS;
+$this->registerJs($js);
+?>
 <?= $this->render('_search', ['model' => $searchModel]) ?>
 
 <div class="auth-item-index card">
@@ -73,7 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'delete' => function ($url, $model, $key) {
                         return Html::a(Yii::$app->params['svg.trash'], ['delete', 'name' => $model->name], [
-                            'class' => 'btn btn-danger btn-icon btn-sm',
+                            'class' => 'btn btn-danger btn-icon btn-sm btn-default',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Delete')
                         ]);
@@ -92,5 +116,4 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
     <?php Pjax::end(); ?>
-
 </div>

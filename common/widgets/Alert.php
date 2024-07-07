@@ -32,11 +32,11 @@ class Alert extends \yii\bootstrap5\Widget
      * - value: the bootstrap alert type (i.e. danger, success, info, warning)
      */
     public $alertTypes = [
-        'error'   => 'alert-danger',
-        'danger'  => 'alert-danger',
-        'success' => 'alert-success',
-        'info'    => 'alert-info',
-        'warning' => 'alert-warning'
+        'error'   => 'alert alert-important alert-danger alert-dismissible',
+        'danger'  => 'alert alert-important alert-danger alert-dismissible',
+        'success' => 'alert alert-important alert-success alert-dismissible',
+        'info'    => 'alert alert-important alert-info alert-dismissible',
+        'warning' => 'alert alert-important alert-warning alert-dismissible'
     ];
     /**
      * @var array the options for rendering the close button tag.

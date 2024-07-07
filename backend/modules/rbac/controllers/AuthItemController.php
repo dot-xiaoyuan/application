@@ -4,9 +4,12 @@ namespace backend\modules\rbac\controllers;
 
 use backend\modules\rbac\models\AuthItem;
 use backend\modules\rbac\models\search;
+use Codeception\PHPUnit\Constraint\Page;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * AuthItemController implements the CRUD actions for AuthItem model.
@@ -63,7 +66,7 @@ class AuthItemController extends Controller
     /**
      * Creates a new AuthItem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionCreate()
     {
@@ -71,6 +74,7 @@ class AuthItemController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Create Successfully'));
                 return $this->redirect(['view', 'name' => $model->name]);
             }
         } else {
@@ -86,7 +90,7 @@ class AuthItemController extends Controller
      * Updates an existing AuthItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $name Name
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($name)
@@ -106,13 +110,17 @@ class AuthItemController extends Controller
      * Deletes an existing AuthItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $name Name
-     * @return \yii\web\Response
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($name)
     {
-        $this->findModel($name)->delete();
-
+        $res = $this->findModel($name)->delete();
+        if ($res) {
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Delete success'));
+        } else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Delete error'));
+        }
         return $this->redirect(['index']);
     }
 
