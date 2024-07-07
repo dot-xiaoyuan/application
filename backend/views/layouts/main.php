@@ -6,6 +6,7 @@
 
 use backend\assets\TablerAsset;
 use common\widgets\Alert;
+use common\widgets\Menu;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
@@ -107,10 +108,8 @@ TablerAsset::register($this);
                 'data-bs-theme' => 'dark',
             ],
         ]);
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav pt-lg-3'],
-            'items' => Yii::$app->params['menu'],
-        ]);
+
+        echo Menu::widget();
 
         NavBar::end();
         ?>

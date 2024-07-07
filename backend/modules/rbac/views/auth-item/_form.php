@@ -8,7 +8,7 @@ use yii\bootstrap5\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="auth-item-form card col-4">
+<div class="auth-item-form card col-md-6 col-xs-6">
 
     <?php $form = ActiveForm::begin([
         'options' => ['class' => 'card-body'],

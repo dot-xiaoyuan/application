@@ -51,6 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return \common\widgets\Badges::widget(['content' => $model->type]);
                 }
             ],
+            'description:ntext',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete}',
@@ -85,8 +86,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['class' => 'pagination m-0 ms-auto'],
             'linkContainerOptions' => ['class' => 'page-item'],
             'linkOptions' => ['class' => 'page-link'],
-            'prevPageLabel' => Yii::$app->params['prePage'] . 'prev',
-            'nextPageLabel' => 'next' . Yii::$app->params['nextPage'],
+            'prevPageLabel' => Yii::$app->params['svg.prePage'] . 'prev',
+            'nextPageLabel' => 'next' . Yii::$app->params['svg.nextPage'],
         ]
     ]); ?>
 
