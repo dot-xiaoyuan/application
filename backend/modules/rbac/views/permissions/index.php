@@ -5,10 +5,10 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
-/** @var \backend\modules\rbac\models\search\authItemSearch $searchModel */
+/** @var \backend\modules\rbac\models\search\permissionsSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Auth Items');
+$this->title = Yii::t('app', 'Permissions');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -54,24 +54,10 @@ $this->registerJs($js);
         'dataProvider' => $dataProvider,
         'tableOptions' => ['class' => 'table card-table table-vcenter text-nowrap datatable'],
         'columns' => [
-//            ['class' => 'yii\grid\CheckboxColumn', 'headerOptions' => ['class' => 'w-1']],
+            ['class' => 'yii\grid\SerialColumn'],
             'name',
-            [
-                'attribute' => 'name',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return Html::a(Html::encode($model->name), ['invoice/view'], ['class' => 'text-reset', 'tabindex' => '-1']);
-                }
-            ],
-            'created_at:date',
-            [
-                'attribute' => 'type',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return \common\widgets\Badges::widget(['content' => $model->type]);
-                }
-            ],
             'description:ntext',
+            'created_at:date',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete}',

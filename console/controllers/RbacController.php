@@ -17,8 +17,19 @@ class RbacController extends Controller
         $auth->removeAll();
 
         $admin = $auth->createRole('root');
+        $admin->description = 'Super Administrator';
         $auth->add($admin);
 
+        $roleManager = $auth->createPermission('/rbac/role/*');
+        $roleManager->description = 'Role Manager';
+        $auth->add($roleManager);
+
+        $perManager = $auth->createPermission('/rbac/permissions/*');
+        $perManager->description = 'Permissions Manager';
+        $auth->add($perManager);
+
+        $auth->addChild($admin, $roleManager);
+        $auth->addChild($admin, $perManager);
         $auth->assign($admin, 1);
     }
 }

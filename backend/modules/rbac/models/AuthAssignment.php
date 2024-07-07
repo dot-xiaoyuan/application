@@ -11,7 +11,7 @@ use Yii;
  * @property string $user_id
  * @property int|null $created_at
  *
- * @property AuthItem $itemName
+ * @property Permissions $itemName
  */
 class AuthAssignment extends \yii\db\ActiveRecord
 {
@@ -33,7 +33,7 @@ class AuthAssignment extends \yii\db\ActiveRecord
             [['created_at'], 'integer'],
             [['item_name', 'user_id'], 'string', 'max' => 64],
             [['item_name', 'user_id'], 'unique', 'targetAttribute' => ['item_name', 'user_id']],
-            [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::class, 'targetAttribute' => ['item_name' => 'name']],
+            [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => Permissions::class, 'targetAttribute' => ['item_name' => 'name']],
         ];
     }
 
@@ -56,6 +56,6 @@ class AuthAssignment extends \yii\db\ActiveRecord
      */
     public function getItemName()
     {
-        return $this->hasOne(AuthItem::class, ['name' => 'item_name']);
+        return $this->hasOne(Permissions::class, ['name' => 'item_name']);
     }
 }

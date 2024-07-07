@@ -1,7 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var backend\modules\rbac\models\AuthItem $model */
+/** @var backend\modules\rbac\models\Permissions $model */
 
 $this->title = Yii::t('app', 'Update Auth Item: {name}', [
     'name' => $model->name,

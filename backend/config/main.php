@@ -5,9 +5,9 @@ use backend\models\Manager;
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
+    require __DIR__ . '/../../common/config/menu.php',
     require __DIR__ . '/params.php',
     require __DIR__ . '/params-local.php',
-    require __DIR__ . '/menu.php',
     require __DIR__ . '/svg.php',
 );
 

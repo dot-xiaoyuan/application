@@ -2,8 +2,8 @@
 
 namespace backend\modules\rbac\controllers;
 
-use backend\modules\rbac\models\AuthItem;
-use backend\modules\rbac\models\search\authItemSearch;
+use backend\modules\rbac\models\Permissions;
+use backend\modules\rbac\models\search\permissionsSearch;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -11,9 +11,9 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
- * AuthItemController implements the CRUD actions for AuthItem model.
+ * PermissionsController implements the CRUD actions for Permissions model.
  */
-class AuthItemController extends Controller
+class PermissionsController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,13 +34,13 @@ class AuthItemController extends Controller
     }
 
     /**
-     * Lists all AuthItem models.
+     * Lists all Permissions models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new authItemSearch();
+        $searchModel = new permissionsSearch(['type' => 2]);
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -50,7 +50,7 @@ class AuthItemController extends Controller
     }
 
     /**
-     * Displays a single AuthItem model.
+     * Displays a single Permissions model.
      * @param string $name Name
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -63,13 +63,13 @@ class AuthItemController extends Controller
     }
 
     /**
-     * Creates a new AuthItem model.
+     * Creates a new Permissions model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
      */
     public function actionCreate()
     {
-        $model = new AuthItem();
+        $model = new Permissions();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -86,7 +86,7 @@ class AuthItemController extends Controller
     }
 
     /**
-     * Updates an existing AuthItem model.
+     * Updates an existing Permissions model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $name Name
      * @return string|Response
@@ -106,7 +106,7 @@ class AuthItemController extends Controller
     }
 
     /**
-     * Deletes an existing AuthItem model.
+     * Deletes an existing Permissions model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $name Name
      * @return Response
@@ -124,15 +124,15 @@ class AuthItemController extends Controller
     }
 
     /**
-     * Finds the AuthItem model based on its primary key value.
+     * Finds the Permissions model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $name Name
-     * @return AuthItem the loaded model
+     * @return Permissions the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($name)
     {
-        if (($model = AuthItem::findOne(['name' => $name])) !== null) {
+        if (($model = Permissions::findOne(['name' => $name])) !== null) {
             return $model;
         }
 

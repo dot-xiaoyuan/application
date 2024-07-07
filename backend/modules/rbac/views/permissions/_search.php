@@ -4,7 +4,7 @@ use yii\bootstrap5\ActiveForm;
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var \backend\modules\rbac\models\search\authItemSearch $model */
+/** @var \backend\modules\rbac\models\search\permissionsSearch $model */
 /** @var yii\bootstrap5\ActiveForm $form */
 $this->registerJsFile(Yii::getAlias('@web/svg/tabler.svg'), [
     'type' => 'image/svg+xml',
@@ -31,7 +31,7 @@ $this->registerJsFile(Yii::getAlias('@web/svg/tabler.svg'), [
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::$app->params['svg.authItemSearch'] . Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Yii::$app->params['svg.search'] . Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
             <?= Html::resetButton(Yii::$app->params['svg.refresh'] . Yii::t('app', 'Refresh'), ['class' => 'btn btn-outline-secondary']) ?>
         </div>
 

@@ -3,6 +3,8 @@
 namespace backend\modules\rbac\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%auth_item}}".
@@ -18,11 +20,11 @@ use Yii;
  * @property AuthAssignment[] $authAssignments
  * @property AuthItemChild[] $authItemChildren
  * @property AuthItemChild[] $authItemChildren0
- * @property AuthItem[] $children
- * @property AuthItem[] $parents
+ * @property Permissions[] $children
+ * @property Permissions[] $parents
  * @property AuthRule $ruleName
  */
-class AuthItem extends \yii\db\ActiveRecord
+class Permissions extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -32,18 +34,32 @@ class AuthItem extends \yii\db\ActiveRecord
         return '{{%auth_item}}';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['name', 'type'], 'required'],
+            [['name'], 'required'],
             [['type', 'created_at', 'updated_at'], 'integer'],
             [['description', 'data'], 'string'],
             [['name', 'rule_name'], 'string', 'max' => 64],
             [['name'], 'unique'],
             [['rule_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthRule::class, 'targetAttribute' => ['rule_name' => 'name']],
+            ['type', 'default', 'value' => 2],
         ];
     }
 
@@ -100,7 +116,7 @@ class AuthItem extends \yii\db\ActiveRecord
      */
     public function getChildren()
     {
-        return $this->hasMany(AuthItem::class, ['name' => 'child'])->viaTable('{{%auth_item_child}}', ['parent' => 'name']);
+        return $this->hasMany(Permissions::class, ['name' => 'child'])->viaTable('{{%auth_item_child}}', ['parent' => 'name']);
     }
 
     /**
@@ -110,7 +126,7 @@ class AuthItem extends \yii\db\ActiveRecord
      */
     public function getParents()
     {
-        return $this->hasMany(AuthItem::class, ['name' => 'parent'])->viaTable('{{%auth_item_child}}', ['child' => 'name']);
+        return $this->hasMany(Permissions::class, ['name' => 'parent'])->viaTable('{{%auth_item_child}}', ['child' => 'name']);
     }
 
     /**

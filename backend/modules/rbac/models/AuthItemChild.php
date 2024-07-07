@@ -10,8 +10,8 @@ use Yii;
  * @property string $parent
  * @property string $child
  *
- * @property AuthItem $child0
- * @property AuthItem $parent0
+ * @property Permissions $child0
+ * @property Permissions $parent0
  */
 class AuthItemChild extends \yii\db\ActiveRecord
 {
@@ -32,8 +32,8 @@ class AuthItemChild extends \yii\db\ActiveRecord
             [['parent', 'child'], 'required'],
             [['parent', 'child'], 'string', 'max' => 64],
             [['parent', 'child'], 'unique', 'targetAttribute' => ['parent', 'child']],
-            [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::class, 'targetAttribute' => ['parent' => 'name']],
-            [['child'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::class, 'targetAttribute' => ['child' => 'name']],
+            [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => Permissions::class, 'targetAttribute' => ['parent' => 'name']],
+            [['child'], 'exist', 'skipOnError' => true, 'targetClass' => Permissions::class, 'targetAttribute' => ['child' => 'name']],
         ];
     }
 
@@ -55,7 +55,7 @@ class AuthItemChild extends \yii\db\ActiveRecord
      */
     public function getChild0()
     {
-        return $this->hasOne(AuthItem::class, ['name' => 'child']);
+        return $this->hasOne(Permissions::class, ['name' => 'child']);
     }
 
     /**
@@ -65,6 +65,6 @@ class AuthItemChild extends \yii\db\ActiveRecord
      */
     public function getParent0()
     {
-        return $this->hasOne(AuthItem::class, ['name' => 'parent']);
+        return $this->hasOne(Permissions::class, ['name' => 'parent']);
     }
 }

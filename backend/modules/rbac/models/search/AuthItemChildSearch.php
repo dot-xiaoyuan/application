@@ -7,7 +7,7 @@ use yii\data\ActiveDataProvider;
 use backend\modules\rbac\models\AuthItemChild;
 
 /**
- * AuthItemChildSearch represents the model behind the authItemSearch form of `backend\modules\rbac\models\AuthItemChild`.
+ * AuthItemChildSearch represents the model behind the permissionsSearch form of `backend\modules\rbac\models\AuthItemChild`.
  */
 class AuthItemChildSearch extends AuthItemChild
 {
@@ -31,7 +31,7 @@ class AuthItemChildSearch extends AuthItemChild
     }
 
     /**
-     * Creates data provider instance with authItemSearch query applied
+     * Creates data provider instance with permissionsSearch query applied
      *
      * @param array $params
      *

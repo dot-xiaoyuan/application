@@ -12,7 +12,7 @@ use Yii;
  * @property int|null $created_at
  * @property int|null $updated_at
  *
- * @property AuthItem[] $authItems
+ * @property Permissions[] $authItems
  */
 class AuthRule extends \yii\db\ActiveRecord
 {
@@ -58,6 +58,6 @@ class AuthRule extends \yii\db\ActiveRecord
      */
     public function getAuthItems()
     {
-        return $this->hasMany(AuthItem::class, ['rule_name' => 'name']);
+        return $this->hasMany(Permissions::class, ['rule_name' => 'name']);
     }
 }

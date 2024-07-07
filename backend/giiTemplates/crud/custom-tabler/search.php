@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the template for generating CRUD authItemSearch class of the specified model.
+ * This is the template for generating CRUD permissionsSearch class of the specified model.
  */
 
 use yii\helpers\StringHelper;

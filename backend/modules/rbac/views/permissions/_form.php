@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var backend\modules\rbac\models\AuthItem $model */
+/** @var backend\modules\rbac\models\Permissions $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -27,9 +27,7 @@ use yii\bootstrap5\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['class' => 'form-control required']) ?>
 
-    <?= $form->field($model, 'type')->dropDownList([0 => 'role', 1 => 'permission'],['class' => 'form-control required']) ?>
-
-    <?= $form->field($model, 'description')->textInput() ?>
+    <?= $form->field($model, 'description')->textarea() ?>
 
     <div class="form-group card-footer text-end">
         <?= Html::submitButton(Yii::$app->params['svg.save'] . Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

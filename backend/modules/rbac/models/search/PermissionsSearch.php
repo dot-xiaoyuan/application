@@ -2,14 +2,14 @@
 
 namespace backend\modules\rbac\models\search;
 
-use backend\modules\rbac\models\AuthItem;
+use backend\modules\rbac\models\Permissions;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * authItemSearch represents the model behind the authItemSearch form of `backend\modules\rbac\models\AuthItem`.
+ * permissionsSearch represents the model behind the permissionsSearch form of `backend\modules\rbac\models\Permissions`.
  */
-class authItemSearch extends AuthItem
+class permissionsSearch extends Permissions
 {
     /**
      * {@inheritdoc}
@@ -32,7 +32,7 @@ class authItemSearch extends AuthItem
     }
 
     /**
-     * Creates data provider instance with authItemSearch query applied
+     * Creates data provider instance with permissionsSearch query applied
      *
      * @param array $params
      *
@@ -40,7 +40,7 @@ class authItemSearch extends AuthItem
      */
     public function search($params)
     {
-        $query = AuthItem::find();
+        $query = Permissions::find();
 
         // add conditions that should always apply here
 

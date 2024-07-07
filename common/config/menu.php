@@ -48,10 +48,10 @@ return [
                     'label' => 'Role',
                     'url' => ['/rbac/role/index']
                 ],
-//                [
-//                    'label' => 'Auth Item Child',
-//                    'url' => ['/rbac/auth-item-child/index']
-//                ],
+                [
+                    'label' => 'Permissions',
+                    'url' => ['/rbac/permissions/index']
+                ],
             ],
         ]
     ]

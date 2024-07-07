@@ -60,7 +60,7 @@ class Role extends \yii\db\ActiveRecord
             [['name', 'rule_name'], 'string', 'max' => 64],
             [['name'], 'unique'],
             [['rule_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthRule::class, 'targetAttribute' => ['rule_name' => 'name']],
-            ['type', 'default', 'value' => 0],
+            ['type', 'default', 'value' => 1],
         ];
     }
 

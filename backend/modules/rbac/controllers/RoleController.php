@@ -40,7 +40,7 @@ class RoleController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new RoleSearch(['type' => 0]);
+        $searchModel = new RoleSearch(['type' => 1]);
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [

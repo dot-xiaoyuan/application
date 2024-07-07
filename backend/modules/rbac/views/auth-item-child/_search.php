@@ -23,7 +23,7 @@ use yii\bootstrap5\ActiveForm;
 </div><div class="me-3 d-none d-md-block">    <?= $form->field($model, 'child') ?>
 
 </div>        <div class="form-group">
-            <?= Html::submitButton(Yii::$app->params['svg.authItemSearch'] . Yii::t('app', 'Search'), ['class' => 'btn btn-primary'])
+            <?= Html::submitButton(Yii::$app->params['svg.search'] . Yii::t('app', 'Search'), ['class' => 'btn btn-primary'])
             ?>
             <?= Html::resetButton(Yii::$app->params['svg.refresh'] . Yii::t('app', 'Reset'), ['class' => 'btn
             btn-outline-secondary']) ?>

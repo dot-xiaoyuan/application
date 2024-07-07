@@ -25,6 +25,38 @@ class Menu extends Nav
         parent::init();
     }
 
+    public function renderItems(): string
+    {
+        $items = [];
+        foreach ($this->items as $item) {
+            if (isset($item['visible']) && !$item['visible']) {
+                continue;
+            }
+
+            if ($item['url'] == '#' && !empty($item['items'])) {
+                $temp = true;
+
+                foreach ($item['items'] as $dropItem) {
+                    $url = current($dropItem['url']);
+                    if (!Yii::$app->user->can($url) && !Yii::$app->user->can($this->getWildCardUrl($url))) {
+                        continue;
+                    }
+                    $temp = false;
+                }
+                if ($temp) {
+                    continue;
+                }
+            } else {
+                if (!Yii::$app->user->can($item['url']) && !Yii::$app->user->can($this->getWildCardUrl($item['url']))) {
+                    continue;
+                }
+            }
+            $items[] = $this->renderItem($item);
+        }
+
+        return \yii\bootstrap5\Html::tag('ul', implode("\n", $items), $this->options);
+    }
+
     public function renderItem($item): string
     {
         if (is_string($item)) {
@@ -85,5 +117,11 @@ class Menu extends Nav
             $label = Yii::t('menu', $item['label']);
             $items[$key]['label'] = $label;
         }
+    }
+
+    public function getWildCardUrl($url)
+    {
+        $i = strrpos($url, '/') + 1;
+        return substr_replace($url, '*', $i, strlen($url) - $i);
     }
 }
