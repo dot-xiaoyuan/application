@@ -27,7 +27,7 @@ use yii\bootstrap5\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['class' => 'form-control required']) ?>
 
-    <?= $form->field($model, 'type')->textInput(['class' => 'form-control required']) ?>
+    <?= $form->field($model, 'type')->dropDownList([0 => 'role', 1 => 'permission'],['class' => 'form-control required']) ?>
 
     <?= $form->field($model, 'description')->textInput() ?>
 

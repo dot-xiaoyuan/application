@@ -78,7 +78,7 @@ $this->registerJs($js);
                 'headerOptions' => ['class' => 'text-end'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
-                        return Html::a(Yii::$app->params['svg.eye'], ['view', 'name' => $model->name], [
+                        return Html::a(Yii::$app->params['svg.eye'], ['view', 'name' => $model], [
                             'class' => 'btn btn-icon btn-sm',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'View')

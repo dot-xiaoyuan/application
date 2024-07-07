@@ -45,13 +45,13 @@ return [
             'encode' => false,
             'items' => [
                 [
-                    'label' => 'Auth Item',
-                    'url' => ['/rbac/auth-item/index']
+                    'label' => 'Role',
+                    'url' => ['/rbac/role/index']
                 ],
-                [
-                    'label' => 'Auth Item Child',
-                    'url' => ['/rbac/auth-item-child/index']
-                ],
+//                [
+//                    'label' => 'Auth Item Child',
+//                    'url' => ['/rbac/auth-item-child/index']
+//                ],
             ],
         ]
     ]

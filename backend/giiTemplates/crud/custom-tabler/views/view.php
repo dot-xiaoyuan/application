@@ -25,12 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view card">
 
     <div class="card-header btn-list">
-        <?= "<?= " ?> Html::a(Yii::$app->params['svg.edit'], ['update', 'name' => $model->name], [
+        <?= "<?= " ?> Html::a(Yii::$app->params['svg.edit'], ['update', 'id' => $model->id], [
             'class' => 'btn btn-info btn-icon',
             'aria-label' => 'button',
             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Update')
         ]) ?>
-        <?= "<?= " ?> Html::a(Yii::$app->params['svg.trash'], ['delete', 'name' => $model->name], [
+        <?= "<?= " ?> Html::a(Yii::$app->params['svg.trash'], ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger btn-icon',
             'aria-label' => 'button',
             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Delete')

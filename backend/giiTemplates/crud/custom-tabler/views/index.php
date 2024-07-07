@@ -25,7 +25,7 @@ use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\w
 $this->title = <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?= "<?php"?>
+<?= "<?php \n"?>
 $js = <<<JS
 $('.btn-default-delete').click(function(){
     var href = $(this).attr('href');
@@ -71,8 +71,8 @@ $this->registerJs($js);
         'options' => ['class' => 'card'],
         'dataProvider' => $dataProvider,
         'tableOptions' => ['class' => 'table card-table table-vcenter text-nowrap datatable'],
-        ['class' => 'yii\grid\SerialColumn'],
-
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
         <?php
         $count = 0;
         if (($tableSchema = $generator->getTableSchema()) === false) {
@@ -122,7 +122,14 @@ $this->registerJs($js);
                 }
             ],
             'contentOptions' => ['class' => 'text-end'],
-        ]
+        ],
+        'pager' => [
+            'options' => ['class' => 'pagination m-0 ms-auto'],
+            'linkContainerOptions' => ['class' => 'page-item'],
+            'linkOptions' => ['class' => 'page-link'],
+            'prevPageLabel' => Yii::$app->params['svg.prePage'] . 'prev',
+            'nextPageLabel' => 'next' . Yii::$app->params['svg.nextPage'],
+            ]
         ],
         ]); ?>
     <?php else: ?>
