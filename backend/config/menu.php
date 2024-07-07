@@ -38,5 +38,21 @@ return [
             'url' => '/setting/index',
             'encode' => false,
         ],
+        [
+            'label' => 'Permissions Manage',
+            'icon' => '<span class="ti ti-manual-gearbox fs-2"></span>',
+            'url' => '#',
+            'encode' => false,
+            'items' => [
+                [
+                    'label' => 'Auth Item',
+                    'url' => ['/rbac/auth-item/index']
+                ],
+                [
+                    'label' => 'Auth Item Child',
+                    'url' => ['/rbac/auth-item-child/index']
+                ],
+            ],
+        ]
     ]
 ];

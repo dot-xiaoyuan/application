@@ -3,8 +3,9 @@
 namespace common\widgets;
 
 use Yii;
-use yii\base\Widget;
+use yii\base\InvalidConfigException;
 use yii\bootstrap5\Nav;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
@@ -12,37 +13,68 @@ use yii\helpers\Html;
  * @author <yt.vertigo0927@gmail.com>
  * @property $menu
  */
-class Menu extends Widget
+class Menu extends Nav
 {
-    /**
-     * @var mixed
-     */
-    private $_menu;
+    public $options = ['class' => 'navbar-nav pt-lg-3'];
 
-    public function getMenu(): array
+    public $activateParents = true;
+
+    public function init()
     {
-        return $this->_menu ?? Yii::$app->params['menu'];
+        $this->items = Yii::$app->params['menu'];
+        parent::init();
     }
 
-    public function setMenu($menu)
+    public function renderItem($item): string
     {
-        $this->_menu = $menu;
-    }
+        if (is_string($item)) {
+            return $item;
+        }
+        if (!isset($item['label'])) {
+            throw new InvalidConfigException("The 'label' option is required.");
+        }
+        $encodeLabel = $item['encode'] ?? $this->encodeLabels;
+        $label = $encodeLabel ? \yii\bootstrap5\Html::encode($item['label']) : $item['label'];
+        $options = ArrayHelper::getValue($item, 'options', []);
+        $items = ArrayHelper::getValue($item, 'items');
+        $url = ArrayHelper::getValue($item, 'url', '#');
+        $linkOptions = ArrayHelper::getValue($item, 'linkOptions', []);
+        $disabled = ArrayHelper::getValue($item, 'disabled', false);
+        $active = $this->isItemActive($item);
 
-    /**
-     * @throws \Throwable
-     */
-    public function run()
-    {
-        $menu = $this->menu;
-        foreach ($menu as $key => $item) {
-            $menu[$key]['label'] =  Html::tag('span', $item['icon'], ['class' => 'nav-link-icon d-md-none d-lg-inline-block']).
-                Html::tag('span', Yii::t('menu', $item['label']), ['class' => 'nav-link-title']);
+        if (isset($item['icon'])) {
+            $label = Html::beginTag('span', ['class' => 'nav-link-icon d-md-none d-lg-inline-block']) .
+                $item['icon'] . Html::endTag('span') .
+                Html::beginTag('span', ['class' => 'nav-link-title']) . $label . Html::endTag('span');
+        }
+        if (empty($items)) {
+            $items = '';
+            Html::addCssClass($options, ['widget' => 'nav-item']);
+            Html::addCssClass($linkOptions, ['widget' => 'nav-link']);
+        } else {
+            $linkOptions['data']['bs-toggle'] = 'dropdown';
+            $linkOptions['role'] = 'button';
+            $linkOptions['aria']['expanded'] = 'false';
+            $linkOptions['data-bs-auto-close'] = 'false';
+            Html::addCssClass($options, ['widget' => 'dropdown nav-item']);
+            Html::addCssClass($linkOptions, ['widget' => 'nav-link dropdown-toggle']);
+            if (is_array($items)) {
+                $items = $this->isChildActive($items, $active);
+                if ($active) {
+                    $item['dropdownOptions'] = ['class' => 'show'];
+                }
+                $items = $this->renderDropdown($items, $item);
+            }
         }
 
-        return Nav::widget([
-            'options' => ['class' => 'navbar-nav pt-lg-3'],
-            'items' => $menu,
-        ]);
+        if ($disabled) {
+            ArrayHelper::setValue($linkOptions, 'tabindex', '-1');
+            ArrayHelper::setValue($linkOptions, 'aria.disabled', 'true');
+            Html::addCssClass($linkOptions, ['disable' => 'disabled']);
+        } elseif ($this->activateItems && $active) {
+            Html::addCssClass($linkOptions, ['activate' => 'active']);
+        }
+
+        return Html::tag('li', Html::a($label, $url, $linkOptions) . $items, $options);
     }
 }
