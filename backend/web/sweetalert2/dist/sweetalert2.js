@@ -2091,7 +2091,7 @@
   var setFocus = function setFocus(index, increment) {
     var _dom$getPopup;
     var focusableElements = getFocusableElements();
-    // search for visible elements and select the next possible match
+    // authItemSearch for visible elements and select the next possible match
     if (focusableElements.length) {
       index = index + increment;
 

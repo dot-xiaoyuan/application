@@ -1,20 +1,23 @@
 <?php
 
-use yii\grid\GridView;
+use backend\modules\rbac\models\AuthItemChild;
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\grid\ActionColumn;
+use yii\grid\GridView;
 use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
-/** @var \backend\modules\rbac\models\search\authItemSearch $searchModel */
+/** @var backend\modules\rbac\models\search\AuthItemChildSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = Yii::t('app', 'Auth Items');
+$this->title = Yii::t('app', 'Auth Item Children');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php
 $js = <<<JS
-$('.btn-default').click(function(){
+$('.btn-default-delete').click(function(){
     var href = $(this).attr('href');
     Swal.fire({
       title: "Are you sure?",
@@ -35,9 +38,11 @@ $('.btn-default').click(function(){
 JS;
 $this->registerJs($js);
 ?>
-<?= $this->render('_search', ['model' => $searchModel]) ?>
 
-<div class="auth-item-index card">
+<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+<div class="auth-item-child-index card">
+
     <div class="card-header btn-list">
         <?= Html::a(Yii::$app->params['svg.plus'] . Yii::t('app', 'Create'), ['create'], [
             'class' => 'btn btn-success',
@@ -48,52 +53,39 @@ $this->registerJs($js);
     </div>
     <?php Pjax::begin(); ?>
 
+
     <?= GridView::widget([
         'layout' => "{items}\n{pager}",
         'options' => ['class' => 'card'],
         'dataProvider' => $dataProvider,
         'tableOptions' => ['class' => 'table card-table table-vcenter text-nowrap datatable'],
         'columns' => [
-//            ['class' => 'yii\grid\CheckboxColumn', 'headerOptions' => ['class' => 'w-1']],
-            'name',
-            [
-                'attribute' => 'name',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return Html::a(Html::encode($model->name), ['invoice/view'], ['class' => 'text-reset', 'tabindex' => '-1']);
-                }
-            ],
-            'created_at:date',
-            [
-                'attribute' => 'type',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return \common\widgets\Badges::widget(['content' => $model->type]);
-                }
-            ],
-            'description:ntext',
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'parent',
+            'child',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete}',
                 'headerOptions' => ['class' => 'text-end'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
-                        return Html::a(Yii::$app->params['svg.eye'], ['view', 'name' => $model->name], [
+                        return Html::a(Yii::$app->params['svg.eye'], ['view', 'parent' => $model->parent, 'child' => $model->child], [
                             'class' => 'btn btn-icon btn-sm',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'View')
                         ]);
                     },
                     'update' => function ($url, $model, $key) {
-                        return Html::a(Yii::$app->params['svg.edit'], ['update', 'name' => $model->name], [
+                        return Html::a(Yii::$app->params['svg.edit'], ['update', 'parent' => $model->parent], [
                             'class' => 'btn btn-info btn-icon btn-sm',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Update')
                         ]);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a(Yii::$app->params['svg.trash'], ['delete', 'name' => $model->name], [
-                            'class' => 'btn btn-danger btn-icon btn-sm btn-default',
+                        return Html::a(Yii::$app->params['svg.trash'], ['delete', 'parent' => $model->parent, 'child' => $model->child], [
+                            'class' => 'btn btn-danger btn-icon btn-sm btn-default-delete',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Delete')
                         ]);
@@ -102,14 +94,8 @@ $this->registerJs($js);
                 'contentOptions' => ['class' => 'text-end'],
             ]
         ],
-        'pager' => [
-            'options' => ['class' => 'pagination m-0 ms-auto'],
-            'linkContainerOptions' => ['class' => 'page-item'],
-            'linkOptions' => ['class' => 'page-link'],
-            'prevPageLabel' => Yii::$app->params['svg.prePage'] . 'prev',
-            'nextPageLabel' => 'next' . Yii::$app->params['svg.nextPage'],
-        ]
     ]); ?>
 
     <?php Pjax::end(); ?>
+
 </div>

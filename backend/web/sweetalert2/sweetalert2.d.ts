@@ -290,7 +290,7 @@ declare module 'sweetalert2' {
      * </template>
      * ```
      *
-     * @param attribute The attribute name to search for, defaults to `data-swal-template`
+     * @param attribute The attribute name to authItemSearch for, defaults to `data-swal-template`
      */
     function bindClickHandler(attribute?: string): void
 

@@ -30876,7 +30876,7 @@
       // prevent propagation to a parent that might also have dragging enabled
       e.stopPropagation();
 
-      // search for parent on the fly to make sure we can call
+      // authItemSearch for parent on the fly to make sure we can call
       // draggable() even when element is not in the dom currently
       this.parent = this.parent || this.el.parent(SVG.Nested) || this.el.parent(SVG.Doc);
       this.p = this.parent.node.createSVGPoint();

@@ -1,10 +1,10 @@
 <?php
 
-use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var backend\modules\rbac\models\search $model */
+/** @var \backend\modules\rbac\models\search\authItemSearch $model */
 /** @var yii\bootstrap5\ActiveForm $form */
 $this->registerJsFile(Yii::getAlias('@web/svg/tabler.svg'), [
     'type' => 'image/svg+xml',
@@ -14,12 +14,6 @@ $this->registerJsFile(Yii::getAlias('@web/svg/tabler.svg'), [
 
 <div class="row align-items-center">
     <div class="col-auto d-print-none">
-        <svg class="icon icon-tabler icon-tabler-search" width="24" height="24">
-            <use href="#icon-eye"></use>
-        </svg>
-        <svg class="icon icon-tabler icon-tabler-edit" width="24" height="24">
-            <use xlink:href="#icon-search"></use>
-        </svg>
         <?php $form = ActiveForm::begin([
             'action' => ['index'],
             'method' => 'get',
@@ -37,7 +31,7 @@ $this->registerJsFile(Yii::getAlias('@web/svg/tabler.svg'), [
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::$app->params['svg.search'] . Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Yii::$app->params['svg.authItemSearch'] . Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
             <?= Html::resetButton(Yii::$app->params['svg.refresh'] . Yii::t('app', 'Refresh'), ['class' => 'btn btn-outline-secondary']) ?>
         </div>
 
