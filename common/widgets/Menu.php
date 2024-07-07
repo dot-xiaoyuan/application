@@ -45,7 +45,7 @@ class Menu extends Nav
         if (isset($item['icon'])) {
             $label = Html::beginTag('span', ['class' => 'nav-link-icon d-md-none d-lg-inline-block']) .
                 $item['icon'] . Html::endTag('span') .
-                Html::beginTag('span', ['class' => 'nav-link-title']) . $label . Html::endTag('span');
+                Html::beginTag('span', ['class' => 'nav-link-title']) . Yii::t('menu', $label) . Html::endTag('span');
         }
         if (empty($items)) {
             $items = '';
@@ -59,6 +59,7 @@ class Menu extends Nav
             Html::addCssClass($options, ['widget' => 'dropdown nav-item']);
             Html::addCssClass($linkOptions, ['widget' => 'nav-link dropdown-toggle']);
             if (is_array($items)) {
+                $this->disposeDropItem($items);
                 $items = $this->isChildActive($items, $active);
                 if ($active) {
                     $item['dropdownOptions'] = ['class' => 'show'];
@@ -76,5 +77,13 @@ class Menu extends Nav
         }
 
         return Html::tag('li', Html::a($label, $url, $linkOptions) . $items, $options);
+    }
+
+    public function disposeDropItem(&$items)
+    {
+        foreach ($items as $key => $item) {
+            $label = Yii::t('menu', $item['label']);
+            $items[$key]['label'] = $label;
+        }
     }
 }
