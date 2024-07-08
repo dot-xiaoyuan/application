@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
 $js = <<<JS
-$('.btn-default').click(function(){
+$('.btn-default-delete').click(function(){
     var href = $(this).attr('href');
     Swal.fire({
       title: "Are you sure?",
@@ -65,21 +65,21 @@ $this->registerJs($js);
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a(Yii::$app->params['svg.eye'], ['view', 'name' => $model], [
-                            'class' => 'btn btn-icon btn-sm',
+                            'class' => 'text-black',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'View')
                         ]);
                     },
                     'update' => function ($url, $model, $key) {
                         return Html::a(Yii::$app->params['svg.edit'], ['update', 'name' => $model->name], [
-                            'class' => 'btn btn-info btn-icon btn-sm',
+                            'class' => 'text-black',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Update')
                         ]);
                     },
                     'delete' => function ($url, $model, $key) {
                         return Html::a(Yii::$app->params['svg.trash'], ['delete', 'name' => $model->name], [
-                            'class' => 'btn btn-danger btn-icon btn-sm btn-default',
+                            'class' => 'text-black btn-default-delete',
                             'aria-label' => 'button',
                             'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Delete')
                         ]);

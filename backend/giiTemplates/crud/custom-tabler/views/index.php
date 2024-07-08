@@ -101,21 +101,21 @@ $this->registerJs($js);
             'buttons' => [
                 'view' => function ($url, $model, $key) {
                     return Html::a(Yii::$app->params['svg.eye'], ['view', 'id' => $model->id], [
-                        'class' => 'btn btn-icon btn-sm',
+                        'class' => 'text-black',
                         'aria-label' => 'button',
                         'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'View')
                     ]);
                 },
                 'update' => function ($url, $model, $key) {
                     return Html::a(Yii::$app->params['svg.edit'], ['update', 'id' => $model->id], [
-                        'class' => 'btn btn-info btn-icon btn-sm',
+                        'class' => 'text-black',
                         'aria-label' => 'button',
                         'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Update')
                     ]);
                 },
                 'delete' => function ($url, $model, $key) {
                     return Html::a(Yii::$app->params['svg.trash'], ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger btn-icon btn-sm btn-default-delete',
+                        'class' => 'text-black btn-default-delete',
                         'aria-label' => 'button',
                         'data-bs-toggle' => "tooltip", 'data-bs-placement' => "top", 'title' => Yii::t('app', 'Delete')
                     ]);
