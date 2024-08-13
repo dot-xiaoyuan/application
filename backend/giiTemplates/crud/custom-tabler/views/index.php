@@ -123,15 +123,16 @@ $this->registerJs($js);
             ],
             'contentOptions' => ['class' => 'text-end'],
         ],
-        'pager' => [
-            'options' => ['class' => 'pagination m-0 ms-auto'],
-            'linkContainerOptions' => ['class' => 'page-item'],
-            'linkOptions' => ['class' => 'page-link'],
-            'prevPageLabel' => Yii::$app->params['svg.prePage'] . 'prev',
-            'nextPageLabel' => 'next' . Yii::$app->params['svg.nextPage'],
-            ]
-        ],
-        ]); ?>
+
+    ],
+    'pager' => [
+        'options' => ['class' => 'pagination m-0 ms-auto'],
+        'linkContainerOptions' => ['class' => 'page-item'],
+        'linkOptions' => ['class' => 'page-link'],
+        'prevPageLabel' => Yii::$app->params['svg.prePage'] . 'prev',
+        'nextPageLabel' => 'next' . Yii::$app->params['svg.nextPage'],
+    ]
+]); ?>
     <?php else: ?>
         <?= "<?= " ?>ListView::widget([
         'dataProvider' => $dataProvider,

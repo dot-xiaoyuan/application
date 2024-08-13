@@ -21,6 +21,9 @@ return [
         'rbac' => [
             'class' => 'backend\modules\rbac\Module',
         ],
+        'user' => [
+            'class' => 'backend\modules\user\Module',
+        ],
     ],
     'components' => [
         'request' => [
@@ -52,8 +55,9 @@ return [
             "showScriptName" => false,
             "suffix" => "",
             "rules" => [
+                "user/<action>" => "user/default/<action>",
                 "<controller:\w+>/<id:\d+>" => "<controller>/view",
-                "<controller:\w+>/<action:\w+>" => "<controller>/<action>"
+                "<controller:\w+>/<action:\w+>" => "<controller>/<action>",
             ],
         ],
         'i18n' => [

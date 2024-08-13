@@ -9,12 +9,6 @@ return [
             'encode' => false,
         ],
         [
-            'label' => 'User Management',
-            'icon' => '<span class="ti ti-users fs-2"></span>',
-            'url' => '/user/index',
-            'encode' => false,
-        ],
-        [
             'label' => 'Content Manager',
             'icon' => '<span class="ti ti-category fs-2"></span>',
             'url' => '/content/index',
@@ -45,12 +39,24 @@ return [
             'encode' => false,
             'items' => [
                 [
-                    'label' => 'Role',
+                    'label' => 'Roles',
                     'url' => ['/rbac/role/index']
                 ],
                 [
                     'label' => 'Permissions',
                     'url' => ['/rbac/permissions/index']
+                ],
+            ],
+        ],
+        [
+            'label' => 'User Manage',
+            'icon' => '<span class="ti ti-users fs-2"></span>',
+            'url' => '#',
+            'encode' => false,
+            'items' => [
+                [
+                    'label' => 'Users',
+                    'url' => ['/user/index']
                 ],
             ],
         ]
