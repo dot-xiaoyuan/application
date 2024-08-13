@@ -12,6 +12,10 @@ return [
 
     'Dashboard' => '仪表盘',
 
+    // Users
+    'Users' => '用户列表',
+    'Create User' => '创建用户',
+
     // CURD
     'Create' => '创建',
     'View' => '详情',

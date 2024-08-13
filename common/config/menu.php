@@ -56,7 +56,7 @@ return [
             'items' => [
                 [
                     'label' => 'Users',
-                    'url' => ['/user/index']
+                    'url' => ['/user/default/index']
                 ],
             ],
         ]

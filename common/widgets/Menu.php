@@ -104,6 +104,7 @@ class Menu extends Nav
             ArrayHelper::setValue($linkOptions, 'tabindex', '-1');
             ArrayHelper::setValue($linkOptions, 'aria.disabled', 'true');
             Html::addCssClass($linkOptions, ['disable' => 'disabled']);
+
         } elseif ($this->activateItems && $active) {
             Html::addCssClass($linkOptions, ['activate' => 'active']);
         }

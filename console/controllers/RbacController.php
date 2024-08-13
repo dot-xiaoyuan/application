@@ -30,7 +30,7 @@ class RbacController extends Controller
         $auth->add($perManager);
         $auth->addChild($admin, $perManager);
 
-        $perManager = $auth->createPermission('/user/*');
+        $perManager = $auth->createPermission('/user/default/*');
         $perManager->description = 'User Manager';
         $auth->add($perManager);
         $auth->addChild($admin, $perManager);
