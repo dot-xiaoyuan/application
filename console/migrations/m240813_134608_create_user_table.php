@@ -14,18 +14,19 @@ class m240813_134608_create_user_table extends Migration
     {
         $this->createTable('{{%user}}', [
             'id' => $this->primaryKey(),
-            'identity_type' => $this->string()->null()->comment('身份类型'),
-            'username' => $this->string()->notNull()->unique()->comment('用户名'),
-            'password_hash' => $this->string()->notNull()->comment('密码hash'),
-            'identity_card' => $this->string()->null()->comment('身份证号'),
+            'identity_type' => $this->string()->null()->comment('Identity Type'),
+            'username' => $this->string()->notNull()->unique()->comment('Username'),
+            'password_hash' => $this->string()->notNull()->comment('Password Hash'),
+            'identity_card' => $this->string()->null()->comment('Identity Card'),
+            'balance' => $this->decimal(10,2)->defaultValue(0.00)->comment('balance'),
             'auth_key' => $this->string()->null(),
-            'email' => $this->string()->null()->comment('邮箱'),
-            'avatar' => $this->string()->null()->comment('头像'),
-            'address' => $this->string()->null()->comment('地址'),
+            'email' => $this->string()->null()->comment('Email'),
+            'avatar' => $this->string()->null()->comment('Avatar'),
+            'address' => $this->string()->null()->comment('Address'),
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
-            'operator' => $this->string()->null()->comment('操作人'),
-            'created_at' => $this->integer()->notNull()->comment('创建时间'),
-            'updated_at' => $this->integer()->notNull()->comment('更新时间'),
+            'operator' => $this->string()->null()->comment('Operator'),
+            'created_at' => $this->integer()->comment('Created At'),
+            'updated_at' => $this->integer()->comment('Updated At'),
         ], 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4');
 
         $this->createIndex('index_username', '{{%user}}', 'username');

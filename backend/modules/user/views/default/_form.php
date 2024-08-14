@@ -22,17 +22,14 @@ use yii\bootstrap5\ActiveForm;
             <div class="col-6">
                 <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
-                <?= $form->field($model, 'identity_type')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-                <?= $form->field($model, 'identity_card')->textInput(['maxlength' => true]) ?>
-
-            </div>
-            <div class="col-6">
                 <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-                <?= $form->field($model, 'avatar')->textInput(['maxlength' => true]) ?>
-
-                <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'address')->textarea(['maxlength' => true]) ?>
+            </div>
+            <div class="col-6">
+<!--                --><?php //= $form->field($model, 'avatar') ?>
             </div>
         </div>
     </fieldset>

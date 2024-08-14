@@ -3,26 +3,36 @@
 namespace backend\modules\user\models;
 
 use Yii;
+use yii\base\Exception;
+use yii\behaviors\AttributeBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%user}}".
  *
  * @property int $id
- * @property string|null $identity_type 身份类型
- * @property string $username 用户名
- * @property string $password_hash 密码hash
- * @property string|null $identity_card 身份证号
+ * @property string|null $identity_type Identity Type
+ * @property string $username Username
+ * @property string $password_hash Password Hash
+ * @property string|null $identity_card Identity Card
+ * @property float|null $balance balance
  * @property string|null $auth_key
- * @property string|null $email 邮箱
- * @property string|null $avatar 头像
- * @property string|null $address 地址
+ * @property string|null $email Email
+ * @property string|null $avatar Avatar
+ * @property string|null $address Address
  * @property int $status
- * @property string|null $operator 操作人
- * @property int $created_at 创建时间
- * @property int $updated_at 更新时间
+ * @property string|null $operator Operator
+ * @property int $created_at Created At
+ * @property int $updated_at Updated At
  */
 class User extends \yii\db\ActiveRecord
 {
+    /**
+     * @var mixed 密码
+     */
+    public $password;
     /**
      * {@inheritdoc}
      */
@@ -32,15 +42,42 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
+     * @throws Exception
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+            [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['password_hash'],
+                ],
+                'value' => Yii::$app->security->generatePasswordHash($this->password),
+            ],
+            [
+                'class' => AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['operator'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['operator'],
+                ],
+                'value' => Yii::$app->user->identity->username,
+            ],
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['username', 'password_hash', 'created_at', 'updated_at'], 'required'],
+            [['username', 'password'], 'required'],
+            [['balance'], 'number'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['identity_type', 'username', 'password_hash', 'identity_card', 'auth_key', 'email', 'avatar', 'address', 'operator'], 'string', 'max' => 255],
             [['username'], 'unique'],
+            ['status', 'default', 'value' => 0],
         ];
     }
 
@@ -51,18 +88,19 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'identity_type' => Yii::t('app', '身份类型'),
-            'username' => Yii::t('app', '用户名'),
-            'password_hash' => Yii::t('app', '密码hash'),
-            'identity_card' => Yii::t('app', '身份证号'),
+            'identity_type' => Yii::t('app', 'Identity Type'),
+            'username' => Yii::t('app', 'Username'),
+            'password' => Yii::t('app', 'Password'),
+            'identity_card' => Yii::t('app', 'Identity Card'),
+            'balance' => Yii::t('app', 'Balance'),
             'auth_key' => Yii::t('app', 'Auth Key'),
-            'email' => Yii::t('app', '邮箱'),
-            'avatar' => Yii::t('app', '头像'),
-            'address' => Yii::t('app', '地址'),
+            'email' => Yii::t('app', 'Email'),
+            'avatar' => Yii::t('app', 'Avatar'),
+            'address' => Yii::t('app', 'Address'),
             'status' => Yii::t('app', 'Status'),
-            'operator' => Yii::t('app', '操作人'),
-            'created_at' => Yii::t('app', '创建时间'),
-            'updated_at' => Yii::t('app', '更新时间'),
+            'operator' => Yii::t('app', 'Operator'),
+            'created_at' => Yii::t('app', 'Create At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 
@@ -74,4 +112,5 @@ class User extends \yii\db\ActiveRecord
     {
         return new UserQuery(get_called_class());
     }
+
 }
