@@ -5,8 +5,10 @@ use backend\models\Manager;
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
+    require __DIR__ . '/../../common/config/menu.php',
     require __DIR__ . '/params.php',
-    require __DIR__ . '/params-local.php'
+    require __DIR__ . '/params-local.php',
+    require __DIR__ . '/svg.php',
 );
 
 return [
@@ -15,7 +17,14 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'rbac' => [
+            'class' => 'backend\modules\rbac\Module',
+        ],
+        'user' => [
+            'class' => 'backend\modules\user\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -43,9 +52,12 @@ return [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-
+            "showScriptName" => false,
+            "suffix" => "",
+            "rules" => [
+                "user/<action>" => "user/default/<action>",
+                "<controller:\w+>/<id:\d+>" => "<controller>/view",
+                "<controller:\w+>/<action:\w+>" => "<controller>/<action>",
             ],
         ],
         'i18n' => [
@@ -56,6 +68,15 @@ return [
                     //'sourceLanguage' => 'en-US',
                     'fileMap' => [
                         'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+                'menu*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'menu.php',
                         'app/error' => 'error.php',
                     ],
                 ],

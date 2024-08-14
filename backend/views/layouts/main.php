@@ -4,15 +4,36 @@
 
 /** @var string $content */
 
+use backend\assets\SweetalertAsset;
 use backend\assets\TablerAsset;
 use common\widgets\Alert;
+use common\widgets\Menu;
 use yii\bootstrap5\Breadcrumbs;
-use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use yii\helpers\Html;
 use yii\web\View;
 
 TablerAsset::register($this);
+SweetalertAsset::register($this);
+?>
+<?php
+$js = <<<JS
+function fireError(content) {
+  Swal.fire({
+      title: "tips",
+      text: content,
+      icon: "error"
+  });
+}
+function fireSuccess(content) {
+  Swal.fire({
+      title: "tips",
+      text: content,
+      icon: "success"
+  });
+}
+JS;
+$this->registerJs($js);
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -107,10 +128,8 @@ TablerAsset::register($this);
                 'data-bs-theme' => 'dark',
             ],
         ]);
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav pt-lg-3'],
-            'items' => Yii::$app->params['menu'],
-        ]);
+
+        echo Menu::widget();
 
         NavBar::end();
         ?>
@@ -120,7 +139,6 @@ TablerAsset::register($this);
         <div class="page-wrapper">
             <div class="page-header d-print-none">
                 <div class="container-xl">
-                    <?= Alert::widget() ?>
                     <div class="row g-2 align-items-center">
                         <div class="col">
                             <!-- Page pre-title -->
@@ -129,13 +147,18 @@ TablerAsset::register($this);
                             </div>
                             <h2 class="page-title">
                                 <?= $this->title ?>
-                                <?= Breadcrumbs::widget([
-                                    'links' => $this->params['breadcrumbs'] ?? [],
-                                ]) ?>
                             </h2>
                         </div>
-                        <?= Alert::widget() ?>
+
                     </div>
+                </div>
+            </div>
+            <div class="page-header">
+                <div class="container-xl">
+                    <?= Breadcrumbs::widget([
+                        'options' => ['class' => 'breadcrumb-arrows'],
+                        'links' => $this->params['breadcrumbs'] ?? [],
+                    ]) ?>
                 </div>
             </div>
             <div class="page-body">

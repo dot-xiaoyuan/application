@@ -53,7 +53,7 @@ class m240628_153217_create_table_manager extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%user}}');
+        $this->dropTable($this->tableName);
     }
 
     /*
