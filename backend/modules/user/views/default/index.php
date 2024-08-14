@@ -37,7 +37,7 @@ $('.btn-default-delete').click(function(){
 JS;
 $this->registerJs($js);
 ?>
-<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
 <div class="user-index card">
 
