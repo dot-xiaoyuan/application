@@ -2,12 +2,14 @@
 
 namespace backend\modules\user\models;
 
+use common\models\Upload;
 use Yii;
 use yii\base\Exception;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -29,6 +31,10 @@ use yii\db\ActiveRecord;
  */
 class User extends \yii\db\ActiveRecord
 {
+    /**
+     * @var mixed
+     */
+    public $imageFile;
     /**
      * @var mixed 密码
      */
@@ -78,6 +84,7 @@ class User extends \yii\db\ActiveRecord
             [['identity_type', 'username', 'password_hash', 'identity_card', 'auth_key', 'email', 'avatar', 'address', 'operator'], 'string', 'max' => 255],
             [['username'], 'unique'],
             ['status', 'default', 'value' => 0],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
         ];
     }
 

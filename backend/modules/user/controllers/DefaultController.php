@@ -2,12 +2,14 @@
 
 namespace backend\modules\user\controllers;
 
+use common\models\Upload;
 use Yii;
 use backend\modules\user\models\User;
 use backend\modules\user\models\search\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 
 /**
@@ -72,9 +74,17 @@ class DefaultController extends Controller
         $model = new User();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                Yii::$app->session->setFlash('success', Yii::t('app', 'Create Successfully'));
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post()) && $model->validate()) {
+                $file = UploadedFile::getInstance($model, 'avatar');
+                if ($file) {
+                    $model->avatar = Upload::upload($file);
+                }
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'Create Successfully'));
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                Yii::$app->session->setFlash('error', current($model->getFirstErrors()));
             }
         } else {
             $model->loadDefaultValues();
@@ -96,11 +106,20 @@ class DefaultController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Update Successfully'));
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->validate()) {
+                $file = UploadedFile::getInstance($model, 'avatar');
+                if ($file) {
+                    $model->avatar = Upload::upload($file);
+                }
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'Update Successfully'));
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                Yii::$app->session->setFlash('error', current($model->getFirstErrors()));
+            }
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);

@@ -125,9 +125,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
         $model = new <?= $modelClass ?>();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                Yii::$app->session->setFlash('success', Yii::t('app', 'Create Successfully'));
-                return $this->redirect(['view', <?= $urlParams ?>]);
+            if ($model->load($this->request->post())) {
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'Create Successfully'));
+                    return $this->redirect(['view', <?= $urlParams ?>]);
+                } else {
+                    Yii::$app->session->setFlash('error', current($model->getFirstErrors()));
+                }
             }
         } else {
             $model->loadDefaultValues();
@@ -149,9 +153,15 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     {
         $model = $this->findModel(<?= $actionParams ?>);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Update Successfully'));
-            return $this->redirect(['view', <?= $urlParams ?>]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            if ($model->load($this->request->post())) {
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'Update Successfully'));
+                    return $this->redirect(['view', <?= $urlParams ?>]);
+                } else {
+                    Yii::$app->session->setFlash('error', current($model->getFirstErrors()));
+                }
+            }
         }
 
         return $this->render('update', [

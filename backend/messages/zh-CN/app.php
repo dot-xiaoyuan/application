@@ -23,6 +23,8 @@ return [
     'Identity Card' => '身份证号',
     'Avatar' => '头像',
     'Address' => '地址',
+    'Integral' => '积分',
+    'Status' => '状态',
 
     // CURD
     'Create' => '创建',

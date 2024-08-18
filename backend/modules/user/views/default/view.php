@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'identity_card',
 //                'auth_key',
                 'email:email',
-                'avatar',
+                'avatar:image',
                 'address',
 //                'status',
                 'operator',

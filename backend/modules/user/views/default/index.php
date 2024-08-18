@@ -62,11 +62,17 @@ $this->registerJs($js);
             'id',
 //            'identity_type',
             'username',
+            [
+                'attribute' => 'avatar',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return Html::tag('span', null, ['class' => 'avatar', 'style' => 'background-image: url(' . $model->avatar . ')']);
+                }
+            ],
 //            'password_hash',
 //            'identity_card',
             //'auth_key',
             'email:email',
-            //'avatar',
             //'address',
             //'status',
             'operator',
