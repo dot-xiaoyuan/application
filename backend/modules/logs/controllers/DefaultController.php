@@ -1,19 +1,17 @@
 <?php
 
-namespace backend\modules\user\controllers;
+namespace backend\modules\logs\controllers;
 
-use common\models\Upload;
 use Yii;
-use backend\modules\user\models\User;
-use backend\modules\user\models\search\UserSearch;
+use backend\modules\logs\models\OperatorLog;
+use backend\modules\logs\models\search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 
 /**
- * DefaultController implements the CRUD actions for User model.
+ * DefaultController implements the CRUD actions for OperatorLog model.
  */
 class DefaultController extends Controller
 {
@@ -36,13 +34,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Lists all OperatorLog models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new search();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -52,7 +50,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single OperatorLog model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -65,27 +63,22 @@ class DefaultController extends Controller
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new OperatorLog model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new User();
-        $model->setScenario('create');
+        $model = new OperatorLog();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->validate()) {
-                $file = UploadedFile::getInstance($model, 'avatar');
-                if ($file) {
-                    $model->avatar = Upload::upload($file);
-                }
+            if ($model->load($this->request->post())) {
                 if ($model->save()) {
                     Yii::$app->session->setFlash('success', Yii::t('app', 'Create Successfully'));
                     return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    Yii::$app->session->setFlash('error', current($model->getFirstErrors()));
                 }
-            } else {
-                Yii::$app->session->setFlash('error', current($model->getFirstErrors()));
             }
         } else {
             $model->loadDefaultValues();
@@ -97,7 +90,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Updates an existing User model.
+     * Updates an existing OperatorLog model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -106,29 +99,25 @@ class DefaultController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->setScenario('update');
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->validate()) {
-                $file = UploadedFile::getInstance($model, 'avatar');
-                if ($file) {
-                    $model->avatar = Upload::upload($file);
-                }
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            if ($model->load($this->request->post())) {
                 if ($model->save()) {
                     Yii::$app->session->setFlash('success', Yii::t('app', 'Update Successfully'));
                     return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    Yii::$app->session->setFlash('error', current($model->getFirstErrors()));
                 }
-            } else {
-                Yii::$app->session->setFlash('error', current($model->getFirstErrors()));
             }
         }
+
         return $this->render('update', [
             'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing User model.
+     * Deletes an existing OperatorLog model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -146,15 +135,15 @@ class DefaultController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the OperatorLog model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return User the loaded model
+     * @return OperatorLog the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne(['id' => $id])) !== null) {
+        if (($model = OperatorLog::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

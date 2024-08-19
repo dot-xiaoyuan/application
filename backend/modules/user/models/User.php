@@ -2,6 +2,7 @@
 
 namespace backend\modules\user\models;
 
+use backend\modules\logs\behaviors\OperatorBehavior;
 use common\models\Upload;
 use Yii;
 use yii\base\Exception;
@@ -9,6 +10,7 @@ use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\BaseActiveRecord;
 use yii\web\UploadedFile;
 
 /**
@@ -54,18 +56,19 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::class,
+            OperatorBehavior::class,
             [
                 'class' => AttributeBehavior::class,
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['password_hash'],
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['password_hash'],
                 ],
                 'value' => Yii::$app->security->generatePasswordHash($this->password),
             ],
             [
                 'class' => AttributeBehavior::class,
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['operator'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['operator'],
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['operator'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => ['operator'],
                 ],
                 'value' => Yii::$app->user->identity->username,
             ],
@@ -78,7 +81,8 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password'], 'required'],
+            [['username', 'password'], 'required', 'on' => 'create'],
+            [['username'], 'required', 'on' => 'update'],
             [['balance'], 'number'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['identity_type', 'username', 'password_hash', 'identity_card', 'auth_key', 'email', 'avatar', 'address', 'operator'], 'string', 'max' => 255],
@@ -120,4 +124,15 @@ class User extends \yii\db\ActiveRecord
         return new UserQuery(get_called_class());
     }
 
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            // 如果没有上传新图片，保留旧的图片路径
+            if (empty($this->avatar)) {
+                $this->avatar = $this->getOldAttribute('avatar');
+            }
+            return true;
+        }
+        return false;
+    }
 }

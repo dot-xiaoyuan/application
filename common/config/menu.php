@@ -59,6 +59,18 @@ return [
                     'url' => ['/user/default/index']
                 ],
             ],
+        ],
+        [
+            'label' => 'Log Manage',
+            'icon' => '<span class="ti ti-logs fs-2"></span>',
+            'url' => '#',
+            'encode' => false,
+            'items' => [
+                [
+                    'label' => 'Operator Log',
+                    'url' => ['/logs/default/index']
+                ],
+            ],
         ]
     ]
 ];

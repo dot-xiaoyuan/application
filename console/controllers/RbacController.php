@@ -35,6 +35,11 @@ class RbacController extends Controller
         $auth->add($perManager);
         $auth->addChild($admin, $perManager);
 
+        $perManager = $auth->createPermission('/logs/default/*');
+        $perManager->description = 'Logs Manager';
+        $auth->add($perManager);
+        $auth->addChild($admin, $perManager);
+
         $auth->assign($admin, 1);
     }
 }

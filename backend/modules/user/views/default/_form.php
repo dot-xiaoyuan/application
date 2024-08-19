@@ -32,11 +32,18 @@ use yii\helpers\Url;
             </div>
             <div class="col-6">
                 <?= $form->field($model, 'avatar')->widget(FileInput::class, ([
+                    'value' => $model->avatar,
                     'options' => ['accepts' => 'image/*', 'multiple' => false],
                     'pluginOptions' => [
+                        'initialPreview' => $model->avatar ? [
+                            sprintf("%s", Yii::$app->request->getHostInfo() . $model->avatar),
+                        ] : [],
+                        'initialPreviewAsData' => (bool)$model->avatar,
+                        'initialCaption' => $model->avatar ? basename($model->avatar) : '',
                         'showRemove' => false,
                         'showUpload' => false,
                         'showCancel' => false,
+                        'overwriteInitial' => false,
                     ]
                 ])) ?>
             </div>

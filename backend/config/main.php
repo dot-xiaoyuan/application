@@ -24,6 +24,17 @@ return [
         'user' => [
             'class' => 'backend\modules\user\Module',
         ],
+        'logs' => [
+            'class' => 'backend\modules\logs\Module',
+        ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module',
+//            'i18n' => [
+//                'class' => 'yii\i18n\PhpMessageSource',
+//                'basePath' => '@kvgrid/messages',
+//                'forceTranslation' => true
+//            ],
+        ],
     ],
     'components' => [
         'request' => [
@@ -56,6 +67,7 @@ return [
             "suffix" => "",
             "rules" => [
                 "user/<action>" => "user/default/<action>",
+                "logs/<action>" => "logs/default/<action>",
                 "<controller:\w+>/<id:\d+>" => "<controller>/view",
                 "<controller:\w+>/<action:\w+>" => "<controller>/<action>",
             ],

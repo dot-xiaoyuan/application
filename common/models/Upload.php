@@ -2,14 +2,16 @@
 
 namespace common\models;
 
+use Yii;
 use yii\web\UploadedFile;
 
 class Upload
 {
+    const UPLOAD_PATH = '/uploads/';
     /**
      * @var mixed
      */
-    public static $path = '/uploads';
+    public static $path = '@backend/web/uploads/';
 
     /**
      * @param $file UploadedFile
@@ -17,11 +19,14 @@ class Upload
      */
     public static function upload($file)
     {
-        if (!is_dir(self::$path)) {
-            mkdir(self::$path, 0777, true);
+        $path = Yii::getAlias(static::$path);
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
         }
-        $img = self::$path . '/' . date('Ymd') . rand(1000, 9999) . $file->baseName . '.' . $file->extension;
+
+        $filename = sprintf("%s%s%s.%s", date('y-m-d'), rand(1000, 9999), $file->baseName, $file->extension);
+        $img = $path . $filename;
         $file->saveAs($img);
-        return $img;
+        return self::UPLOAD_PATH . $filename;
     }
 }

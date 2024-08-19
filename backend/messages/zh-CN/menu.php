@@ -6,4 +6,6 @@ return [
     'Permissions' => '权限列表',
     'User Manage' => '用户管理',
     'Users' => '用户列表',
+    'Log Manage' => '日志管理',
+    'Operator Log' => '操作日志',
 ];
