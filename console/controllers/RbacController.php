@@ -20,6 +20,13 @@ class RbacController extends Controller
         $admin->description = 'Super Administrator';
         $auth->add($admin);
 
+        // Dashboard
+        $siteManager = $auth->createPermission('/');
+        $siteManager->description = 'Dashboard';
+        $auth->add($siteManager);
+        $auth->addChild($admin, $siteManager);
+
+        // rbac
         $roleManager = $auth->createPermission('/rbac/role/*');
         $roleManager->description = 'Role Manager';
         $auth->add($roleManager);
@@ -30,11 +37,13 @@ class RbacController extends Controller
         $auth->add($perManager);
         $auth->addChild($admin, $perManager);
 
+        // user
         $perManager = $auth->createPermission('/user/default/*');
         $perManager->description = 'User Manager';
         $auth->add($perManager);
         $auth->addChild($admin, $perManager);
 
+        // logs
         $perManager = $auth->createPermission('/logs/default/*');
         $perManager->description = 'Logs Manager';
         $auth->add($perManager);

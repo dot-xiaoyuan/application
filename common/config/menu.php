@@ -5,7 +5,7 @@ return [
         [
             'label' => 'Dashboard',
             'icon' => '<span class="ti ti-dashboard fs-2"></span>',
-            'url' => '/site/index',
+            'url' => '/',
             'encode' => false,
         ],
         [
