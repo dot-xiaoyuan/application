@@ -27,14 +27,6 @@ return [
         'logs' => [
             'class' => 'backend\modules\logs\Module',
         ],
-        'gridview' =>  [
-            'class' => '\kartik\grid\Module',
-//            'i18n' => [
-//                'class' => 'yii\i18n\PhpMessageSource',
-//                'basePath' => '@kvgrid/messages',
-//                'forceTranslation' => true
-//            ],
-        ],
     ],
     'components' => [
         'request' => [

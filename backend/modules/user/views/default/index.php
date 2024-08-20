@@ -1,10 +1,7 @@
 <?php
 
-use backend\modules\user\models\User;
-use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
@@ -37,7 +34,7 @@ $('.btn-default-delete').click(function(){
 JS;
 $this->registerJs($js);
 ?>
-<?php echo $this->render('_search', ['model' => $searchModel]); ?>
+<?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
 <div class="user-index card">
 

@@ -1,6 +1,6 @@
 <?php
 
-use kartik\grid\GridView;
+use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 
@@ -46,6 +46,7 @@ $this->registerJs($js);
     <?= GridView::widget([
         'layout' => "{items}\n{pager}",
         'dataProvider' => $dataProvider,
+        'tableOptions' => ['class' => 'table card-table table-vcenter text-nowrap datatable'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'user_id',
@@ -53,8 +54,8 @@ $this->registerJs($js);
             'role',
             'operation',
             [
-                'format' => 'html',
-                'options' => ['class' => 'text-nowrap col-3'],
+                'class' => '\kartik\grid\DataColumn',
+                'contentOptions' => ['class' => 'w-1'],
                 'attribute' => 'description',
             ],
             'ip_address',
@@ -91,25 +92,6 @@ $this->registerJs($js);
                 'contentOptions' => ['class' => 'text-end'],
             ],
         ],
-        'toolbar' => [
-            [
-                'content' =>
-                    Html::button('<i class="fas fa-plus"></i>', [
-                        'type' => 'button',
-                        'title' => Yii::t('app', 'Add Book'),
-                        'class' => 'btn btn-success'
-                    ]) . ' ' .
-                    Html::a('<i class="fas fa-redo"></i>', ['grid-demo'], [
-                        'class' => 'btn btn-secondary btn-default',
-                        'title' => Yii::t('app', 'Reset Grid')
-                    ]),
-                'options' => ['class' => 'btn-group-sm']
-            ],
-            '{export}',
-            '{toggleData}'
-        ],
-        'toggleDataContainer' => ['class' => 'btn-group-sm'],
-        'exportContainer' => ['class' => 'btn-group-sm']
     ]); ?>
 
 

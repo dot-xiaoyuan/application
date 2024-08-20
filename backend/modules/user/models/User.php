@@ -3,44 +3,39 @@
 namespace backend\modules\user\models;
 
 use backend\modules\logs\behaviors\OperatorBehavior;
-use common\models\Upload;
 use Yii;
 use yii\base\Exception;
 use yii\behaviors\AttributeBehavior;
-use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
-use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "{{%user}}".
  *
  * @property int $id
- * @property string|null $identity_type Identity Type
+ * @property string $identity_type Identity Type
  * @property string $username Username
+ * @property string $user_real_name Name
  * @property string $password_hash Password Hash
- * @property string|null $identity_card Identity Card
- * @property float|null $balance balance
- * @property string|null $auth_key
- * @property string|null $email Email
- * @property string|null $avatar Avatar
- * @property string|null $address Address
- * @property int $status
- * @property string|null $operator Operator
- * @property int $created_at Created At
- * @property int $updated_at Updated At
+ * @property string $identity_card Identity Card
+ * @property float|null $balance Balance
+ * @property int $integral Integral
+ * @property string $auth_key
+ * @property string $email Email
+ * @property string $avatar Avatar
+ * @property string $address Address
+ * @property int $status Status
+ * @property string $operator Operator
+ * @property int|null $created_at Created At
+ * @property int|null $updated_at Updated At
  */
 class User extends \yii\db\ActiveRecord
 {
     /**
-     * @var mixed
-     */
-    public $imageFile;
-    /**
      * @var mixed 密码
      */
     public $password;
+
     /**
      * {@inheritdoc}
      */
@@ -83,12 +78,11 @@ class User extends \yii\db\ActiveRecord
         return [
             [['username', 'password'], 'required', 'on' => 'create'],
             [['username'], 'required', 'on' => 'update'],
-            [['balance'], 'number'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
-            [['identity_type', 'username', 'password_hash', 'identity_card', 'auth_key', 'email', 'avatar', 'address', 'operator'], 'string', 'max' => 255],
+            [['integral', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['identity_type', 'username', 'user_real_name', 'password_hash', 'identity_card', 'auth_key', 'email', 'avatar', 'address', 'operator'], 'string', 'max' => 255],
             [['username'], 'unique'],
             ['status', 'default', 'value' => 0],
-            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
+            [['avatar'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -101,27 +95,20 @@ class User extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'identity_type' => Yii::t('app', 'Identity Type'),
             'username' => Yii::t('app', 'Username'),
-            'password' => Yii::t('app', 'Password'),
+            'user_real_name' => Yii::t('app', 'Name'),
+            'password_hash' => Yii::t('app', 'Password Hash'),
             'identity_card' => Yii::t('app', 'Identity Card'),
             'balance' => Yii::t('app', 'Balance'),
+            'integral' => Yii::t('app', 'Integral'),
             'auth_key' => Yii::t('app', 'Auth Key'),
             'email' => Yii::t('app', 'Email'),
             'avatar' => Yii::t('app', 'Avatar'),
             'address' => Yii::t('app', 'Address'),
             'status' => Yii::t('app', 'Status'),
             'operator' => Yii::t('app', 'Operator'),
-            'created_at' => Yii::t('app', 'Create At'),
+            'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return UserQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new UserQuery(get_called_class());
     }
 
     public function beforeSave($insert)
