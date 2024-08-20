@@ -46,7 +46,8 @@ $this->registerJs($js);
     <?= GridView::widget([
         'layout' => "{items}\n{pager}",
         'dataProvider' => $dataProvider,
-        'tableOptions' => ['class' => 'table card-table table-vcenter text-nowrap datatable'],
+        'options' => ['class' => 'table-responsive'],
+        'tableOptions' => ['class' => 'table card-table text-nowrap table-responsive'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'user_id',
@@ -54,9 +55,11 @@ $this->registerJs($js);
             'role',
             'operation',
             [
-                'class' => '\kartik\grid\DataColumn',
-                'contentOptions' => ['class' => 'w-1'],
+                'options' => ['class' => 'col-3'], // 固定宽度
                 'attribute' => 'description',
+                'contentOptions' => [
+                    'style' => 'white-space: normal; word-wrap: break-word; max-width: 200px;' // 设置宽度并允许换行
+                ],
             ],
             'ip_address',
             'created_at:datetime',
