@@ -71,6 +71,18 @@ return [
                     'url' => ['/logs/default/index']
                 ],
             ],
+        ],
+        [
+            'label' => 'Category Manage',
+            'icon' => '<span class="ti ti-category fs-2"></span>',
+            'url' => '#',
+            'encode' => false,
+            'items' => [
+                [
+                    'label' => 'Category',
+                    'url' => ['/category/default/index']
+                ],
+            ],
         ]
     ]
 ];

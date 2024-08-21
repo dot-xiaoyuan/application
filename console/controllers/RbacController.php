@@ -49,6 +49,12 @@ class RbacController extends Controller
         $auth->add($perManager);
         $auth->addChild($admin, $perManager);
 
+        // category
+        $perManager = $auth->createPermission('/category/default/*');
+        $perManager->description = 'Category Manager';
+        $auth->add($perManager);
+        $auth->addChild($admin, $perManager);
+
         $auth->assign($admin, 1);
     }
 }
