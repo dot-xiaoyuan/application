@@ -48,7 +48,6 @@ $this->registerJs($js);
     </div>
     <?php Pjax::begin(); ?>
 
-
     <?= GridView::widget([
         'layout' => "{items}\n{pager}",
         'options' => ['class' => 'card'],
@@ -57,7 +56,6 @@ $this->registerJs($js);
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
-//            'identity_type',
             'username',
             [
                 'attribute' => 'avatar',
@@ -66,12 +64,7 @@ $this->registerJs($js);
                     return Html::tag('span', null, ['class' => 'avatar', 'style' => 'background-image: url(' . $model->avatar . ')']);
                 }
             ],
-//            'password_hash',
-//            'identity_card',
-            //'auth_key',
             'email:email',
-            //'address',
-            //'status',
             'operator',
             'created_at:datetime',
             'updated_at:datetime',
